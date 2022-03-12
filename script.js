@@ -8,6 +8,7 @@ var numbers = "0123456789"
 var upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 var lower = upper.toLowerCase();
 var special = "!@#$%^&*()-_=+[{]},<.>/?"
+var passwordLength = 0
 
 // random number function
 function random (min, max) {
@@ -20,19 +21,6 @@ function generatePassword() {
   var pw = "";
   // list of viable characters for password
   var viableCharacters = "";
-  // password length input
-  var passwordLength = window.prompt("Please select password length between 8 and 128");
-  // loop until valid length inputted
-  while (true) {
-    if (passwordLength < 8){
-      passwordLength = window.prompt("Length must be greater than 7, please reselect.");
-    } else if (passwordLength > 128) {
-      passwordLength = window.prompt("Length must be less than 129, please reselect.");
-    } else {
-      break;
-    };
-  }
-  window.alert("Password length is " + passwordLength);
 
   // Upper case prompt
   var upperCase = window.confirm("Will the password include upper case characters?");
@@ -68,18 +56,40 @@ function generatePassword() {
   };
 
   // Numbers prompt
-  var passwordNumbers = window.confirm("Will the password include numbers?");
+  var numberCharacters = window.confirm("Will the password include numbers?");
   // add numbers to password and expand viable characters for password if true
-  if (passwordNumbers === true){
+  if (numberCharacters === true){
     pw = pw + numbers.charAt(random(0, numbers.length-1));
     viableCharacters = viableCharacters + numbers;
     window.alert("Password will include numbers.");
   } else {
     window.alert("Password will not include numbers.")
   };
-
-  console.log(viableCharacters);
-
+  // restart password parameter selection if no viable characters
+  if (numberCharacters === false && specialCharacters === false && upperCase === false && lowerCase === false) {
+    window.alert("Password parameters include no viable characters.\nPlease select at least one parameter.");
+    return generatePassword();
+  } else {
+    // password length input
+    passwordLength = window.prompt("Please select password length between 8 and 128");
+    // loop until valid length inputted
+    while (true) {
+      if (passwordLength < 8){
+        passwordLength = window.prompt("Length must be greater than 7, please reselect.");
+      } else if (passwordLength > 128) {
+        passwordLength = window.prompt("Length must be less than 129, please reselect.");
+      } else {
+        break;
+      };
+    }
+    window.alert("Password length is " + passwordLength);
+  };
+  // setting password length for loop
+  passwordLength = passwordLength - pw.length;
+  // loop to complete password
+  for (var i = 0; i < passwordLength; i++) {
+    pw = pw + viableCharacters.charAt(random(0, viableCharacters.length-1));
+  }
   return pw;
 }
 
@@ -89,8 +99,7 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-  
-  //console.log(password);
+
 }
 
 // Add event listener to generate button
