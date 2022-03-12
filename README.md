@@ -2,12 +2,14 @@
 The challenge this week is to create a random password generator using Javascript.
 
 ## Repository
+[Repository](https://github.com/edlebeck/password.generator.git)
 
 ## Working site
+[Password Generator Page](https://edlebeck.github.io/password.generator/)
 
 ### User Story
 AS AN employee with access to sensitive data
-I WANT to randomly generate a password that meets certain criteria
+I WANT to randomly generate aa password that meets certain criteria
 SO THAT I can create a strong password that provides greater security
 
 ### Acceptance Criteria
