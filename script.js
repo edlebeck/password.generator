@@ -6,11 +6,21 @@ var generateBtn = document.querySelector("#generate");
 
 // random number function
 function random (min, max) {
-  var num = Math.floor(Math.random() * (max - min + 1) + min);
+  var num = Math.floor(Math.random() * max + min);
   return num;
 }
 // generate password function
 function generatePassword() {
+  var passwordLength = window.prompt("Length of password?");
+  while (true) {
+    if (passwordLength < 7){
+      passwordLength = window.prompt("Length must be greater than 7, please reselect.");
+    } else if (passwordLength > 128) {
+      passwordLength = window.prompt("Length must be less than 128, please reselect.")
+    } else {
+      break;
+    }
+  };
 }
 
 // Write password to the #password input
@@ -24,4 +34,4 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword());
+generateBtn.addEventListener("click", writePassword);
